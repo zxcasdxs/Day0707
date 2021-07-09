@@ -19,16 +19,15 @@ public class DBTest {
    Scanner sc = new Scanner(System.in);
    int total = 0;
    int a;
-  
-    
+
     
     public void connect() {
     
       try {
       Class.forName("oracle.jdbc.driver.OracleDriver");
-      String url = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+      String url = "jdbc:oracle:thin:@localhost:1521:XE";
       CN =  DriverManager.getConnection(url, "system", "1234");
-      System.out.println("오라클 드라이브 & 서버 연결성공");
+      System.out.println("07-09-금요일 오라클 드라이브 & 서버 연결성공");
       
       ST = CN.createStatement();
       
@@ -91,6 +90,7 @@ public class DBTest {
         int OK = ST.executeUpdate(msg);
         if (OK>0) {
           System.out.println(a + "코드 데이터 삭제 성공");
+          AllList();
         } else {
           System.out.println(a + "코드 데이터 삭제 실패");
         }
@@ -143,23 +143,10 @@ public class DBTest {
     RS = ST.executeQuery(msg);
     
     System.out.println("\t\t\t 전체 레코드 갯수 : " + total);
-    System.out.println("코 드\t이 름\t제 목\t날 짜\t    조 회 수 ");
-    while(RS.next()==true) {
-      //필드 접근해서 데이터가져올때 getXXX()
-      int ucode = RS.getInt("code");
-      String uname = RS.getString("name");
-      String utitle = RS.getNString("title");
-      Date udate = RS.getDate("wdate");
-      int ucnt = RS.getInt("cnt");
-    
-      
-      System.out.println(
-          ucode + "\t" + uname + "\t" + utitle + "\t" + udate + "\t" + ucnt);
-    }
-    
-    } catch (Exception ex) { System.out.println("에러이유 " + ex);
-    }//try C end
+        } catch (Exception ex) { System.out.println("에러이유 " + ex);
+        }//try C end
         
+        listin();
       }//list end
       
       public void view() {
@@ -173,7 +160,6 @@ public class DBTest {
           Thread.sleep(500);
           msg = "select * from test where code = "+ a; // 문자열을 명령어 인식해서 실행하도록 Statement
           
-          System.out.println(msg);
           int OK = ST.executeUpdate(msg);
           if (OK==0) {
             System.out.println(a + "코드 데이터 조회 실패");
@@ -182,7 +168,14 @@ public class DBTest {
             break loop;
           }
 }//while end
-
+        } catch (Exception ex) { System.out.println("에러이유 " + ex);
+        }//try C end
+        
+        listin();
+      }
+      
+      public void listin() {
+        try {
           System.out.println("코 드\t이 름\t제 목\t날 짜\t    조 회 수 ");
           RS = ST.executeQuery(msg);
           while(RS.next()==true) {
@@ -199,7 +192,6 @@ public class DBTest {
           
           } catch (Exception ex) { System.out.println("에러이유 " + ex);
           }//try C end
-              
       }
       
     public static void main(String[] args) {
