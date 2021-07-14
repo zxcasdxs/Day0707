@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 
-public class DBTest {
+public class DBTest1 {
   
    Connection CN = null; //DB 서버 연결정보
    Statement ST = null; // 명령어 생성
@@ -195,7 +195,7 @@ public class DBTest {
       }
       
     public static void main(String[] args) {
-      DBTest tt = new DBTest();
+      DBTest1 tt = new DBTest1();
       tt.connect();
       
   }//M end
